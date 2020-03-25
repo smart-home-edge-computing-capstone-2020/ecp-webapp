@@ -1,0 +1,16 @@
+.interactions-list {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.interaction {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.interaction-logo {
+    height: 100px;
+    background-color: gray;
+}

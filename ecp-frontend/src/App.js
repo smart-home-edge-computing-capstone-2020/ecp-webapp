@@ -1,0 +1,49 @@
+import React from 'react';
+import './style/App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+import About from "./components/About";
+import Home from "./components/Home";
+import Interactions from "./components/interactions";
+import Devices from "./components/Devices";
+import Device from "./components/Device";
+
+
+function App() {
+  return (
+    <div>
+      <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+      <Router>
+        <Switch>
+          <Route path="/devices">
+            <Devices />
+          </Route>
+          <Route path="/device/:id">
+            <Device />
+          </Route>
+          <Route path="/interactions">
+            <Interactions />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+
+  );
+}
+
+export default App;

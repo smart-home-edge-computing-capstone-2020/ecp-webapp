@@ -1,0 +1,9 @@
+.dashboard{
+}
+
+.dashboard-item {
+    margin: 20px;
+    height: 200px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
