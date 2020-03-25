@@ -1,6 +1,6 @@
 import React from 'react';
 import EcpNavbar from './EcpNavbar';
-import './../style/Devices.css'
+import '../style/Devices.css'
 import { Button, Container, Row, Col } from 'react-bootstrap';
 
 const DevicelistDevice = (device) => (

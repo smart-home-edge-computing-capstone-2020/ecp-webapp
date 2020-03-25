@@ -1,6 +1,6 @@
 import React from 'react';
 import EcpNavbar from './EcpNavbar';
-import './../style/Interactions.css'
+import '../style/Interactions.css'
 import { Button, Container, Row, Col } from 'react-bootstrap';
 
 const InteractionlistInteraction = (interaction) => (

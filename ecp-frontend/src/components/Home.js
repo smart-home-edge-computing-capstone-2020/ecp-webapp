@@ -2,7 +2,7 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import EcpNavbar from './EcpNavbar';
 import { Container, Row, Col } from 'react-bootstrap';
-import './../style/Home.css';
+import '../style/Home.css';
 
 class Home extends React.Component {
     render() {

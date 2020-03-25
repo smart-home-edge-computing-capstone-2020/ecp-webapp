@@ -8,7 +8,7 @@ import {
 
 import About from "./components/About";
 import Home from "./components/Home";
-import Interactions from "./components/interactions";
+import Interactions from "./components/Interactions";
 import Devices from "./components/Devices";
 import Device from "./components/Device";
 
