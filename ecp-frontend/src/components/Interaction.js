@@ -13,7 +13,7 @@ class Interaction extends React.Component {
     componentDidMount() {
         // get the device via id from the backend
         this.setState({interaction: 
-            {id: 1, name: 'bedroom 1', description: 'phillips hue in bedroom 1'}
+            {id: 1, name: 'bedroom 1', description: 'When motion is detected and it is later than 8pm, turn on BR-light-1.'}
         })
     }
 
@@ -42,4 +42,4 @@ class Interaction extends React.Component {
     }
 }
 
-export default Device;
+export default Interaction;

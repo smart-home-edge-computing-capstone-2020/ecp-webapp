@@ -1,5 +1,7 @@
 import React from 'react';
 import EcpNavbar from './EcpNavbar';
+import '../style/Device.css'
+import { Button } from 'react-bootstrap';
 
 class Device extends React.Component {
 
@@ -31,6 +33,14 @@ class Device extends React.Component {
                         <div className="device">
                             <div className="device-details">
                                 {device.description}
+                            </div>
+                            <div>
+                                Status: on
+                            </div>
+                            <div>
+                                <Button variant="btn btn-outline-dark">
+                                    Turn off
+                                </Button>
                             </div>
                         </div>
                     </div>

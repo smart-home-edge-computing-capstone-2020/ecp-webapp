@@ -17,16 +17,40 @@ class Home extends React.Component {
                 <Container>
                     <Row>
                         <Col>
-                            <div className="dashboard-item"></div>
-                            Dashboard item 1
+                            <a href="/devices" >
+                                <div className="dashboard-item">
+                                    <div className="dashboard-label">My Devices</div>
+                                </div>
+                            </a>
+
                         </Col>
-                        <Col><div className="dashboard-item"></div></Col>
-                        <Col><div className="dashboard-item"></div></Col>
+                        <Col>
+                            <a href="/interactions">
+                                <div className="dashboard-item">
+                                    <div className="dashboard-label">My Interactions</div>
+                                </div>                                
+                            </a>
+                        </Col>
+                        <Col>
+                            <a href="/log">
+                                <div className="dashboard-item">
+                                    <div className="dashboard-label">Log</div>
+                                </div>                                
+                            </a>
+
+                        </Col>
                     </Row>
+                    My Favorite Devices
                     <Row>
-                        <Col><div className="dashboard-item"></div></Col>
-                        <Col><div className="dashboard-item"></div></Col>
-                        <Col><div className="dashboard-item"></div></Col>
+                        <Col>
+                            <div className="dashboard-item"></div>
+                        </Col>
+                        <Col>
+                            <div className="dashboard-item"></div>
+                        </Col>
+                        <Col>
+                            <div className="dashboard-item"></div>
+                        </Col>
                     </Row>
                 </Container>
             </div>

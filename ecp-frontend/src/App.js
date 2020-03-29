@@ -8,6 +8,7 @@ import {
 
 import About from "./components/About";
 import Home from "./components/Home";
+import Interaction from "./components/Interaction";
 import Interactions from "./components/Interactions";
 import Devices from "./components/Devices";
 import Device from "./components/Device";
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/device/:id">
             <Device />
+          </Route>
+          <Route path="/interaction/:id">
+            <Interaction />
           </Route>
           <Route path="/interactions">
             <Interactions />
