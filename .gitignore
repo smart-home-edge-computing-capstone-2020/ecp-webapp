@@ -1,22 +1,28 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Project file ignores
+*.log
+*.pyc
+__pycache__
+*.swp
 
-# virtualenv
-/flask-backend/venv
+# Virtual environments
+venv
+my_venv
 
-# dependencies
+# Dependencies
 /ecp-backend/node_modules
 /ecp-frontend/node_modules
 
 /.pnp
 .pnp.js
 
-# testing
+# Testing
 /coverage
 
-# production
+# Production
 /build
 
-# misc
+# Misc
 .DS_Store
 .env.local
 .env.development.local
