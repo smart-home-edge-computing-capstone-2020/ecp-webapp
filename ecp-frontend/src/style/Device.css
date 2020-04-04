@@ -1,0 +1,7 @@
+.device {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    max-width: 600px;
+}

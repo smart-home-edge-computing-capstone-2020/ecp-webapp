@@ -1,6 +1,6 @@
 import React from 'react';
 import EcpNavbar from './EcpNavbar';
-import './../style/Interactions.css'
+import '../style/Interactions.css'
 import { Button, Container, Row, Col } from 'react-bootstrap';
 
 const InteractionlistInteraction = (interaction) => (
@@ -28,13 +28,15 @@ class Interactions extends React.Component {
         } 
     }
 
+    getInteractions = () => {
+        fetch('/interactions').then(res => res.json()).then(data => {
+            this.setState({interactions: data.interactions});
+        })
+    }
+
     componentDidMount() {
         // gets the state from the backend
-        this.setState({
-            interactions: [
-                {id: 1, name: "wakeup", description: "When kitchen motion triggered, light on"},
-            ]
-        })
+        this.getInteractions();
     }
 
     render() {
