@@ -28,13 +28,15 @@ class Interactions extends React.Component {
         } 
     }
 
+    getInteractions = () => {
+        fetch('/interactions').then(res => res.json()).then(data => {
+            this.setState({interactions: data.interactions});
+        })
+    }
+
     componentDidMount() {
         // gets the state from the backend
-        this.setState({
-            interactions: [
-                {id: 1, name: "wakeup", description: "When kitchen motion triggered, light on"},
-            ]
-        })
+        this.getInteractions();
     }
 
     render() {

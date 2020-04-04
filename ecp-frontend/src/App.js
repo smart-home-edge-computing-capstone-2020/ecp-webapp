@@ -21,19 +21,16 @@ function App() {
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous"
+        crossOrigin="anonymous"
       />
       <Router>
         <Switch>
           <Route path="/devices">
             <Devices />
           </Route>
-          <Route path="/device/:id">
-            <Device />
-          </Route>
-          <Route path="/interaction/:id">
-            <Interaction />
-          </Route>
+          {/* <Route path="/device/:id" component={Device}/> */}
+          <Route path='/device/:id' component={Device} />
+          <Route path="/interaction/:id" component={Interaction}/>
           <Route path="/interactions">
             <Interactions />
           </Route>

@@ -9,16 +9,26 @@ class Device extends React.Component {
         super();
         this.state = {
             device: null,
+            device_id: null,
         }
     }
 
     componentDidMount() {
         // get the device via id from the backend
-        this.setState({device: 
-            {id: 1, name: 'bedroom 1', description: 'phillips hue in bedroom 1'}
-        })
+        const device_id = this.props.match.params.id;
+        this.setState({device_id: device_id});
+        this.getDevice(device_id);
+        console.log(device_id);
     }
 
+    getDevice = (device_id) => {
+        const fetchurl = '/device/' + device_id;
+        console.log(fetchurl)
+        fetch(fetchurl).then(res => res.json()).then(data => {
+            this.setState({device: data.device_dict})
+        })
+        console.log("hi")
+    }
 
     render() {
         const {device} = this.state;

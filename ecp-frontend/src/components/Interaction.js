@@ -10,11 +10,17 @@ class Interaction extends React.Component {
         }
     }
 
+    getInteraction = (interactionId) => {
+        
+        fetch('/interaction/' + interactionId).then(res => res.json()).then(data => {
+            this.setState({interaction: data.interaction});
+        })
+    }
+
     componentDidMount() {
         // get the device via id from the backend
-        this.setState({interaction: 
-            {id: 1, name: 'bedroom 1', description: 'When motion is detected and it is later than 8pm, turn on BR-light-1.'}
-        })
+        const interactionId = this.props.match.params.id;
+        this.getInteraction();
     }
 
 
@@ -31,6 +37,14 @@ class Interaction extends React.Component {
                         <div className="interaction">
                             <div className="interaction-details">
                                 {interaction.description}
+                            </div>
+                            Trigger:
+                            <div className="trigger-device">
+                                {interaction.trigger_device.name}
+                            </div>
+                            Target:
+                            <div className="target-device">
+                                {interaction.target_device.name}
                             </div>
                         </div>
                     </div>

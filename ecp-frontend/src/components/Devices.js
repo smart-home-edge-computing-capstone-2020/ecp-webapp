@@ -37,12 +37,12 @@ class Devices extends React.Component {
 
     componentDidMount() {
         // gets the state from the backend
-        this.setState({
-            devices: [
-                {id: 1, name: "bedroom light 1", description: "device 1 description"},
-                {id: 2, name: "coffee pot", description: "Keurig in the kitchen"},
-                {id: 3, name: "kitchen light 1", description: "light in the kitchen"},
-            ]
+        this.getDevices();
+    }
+
+    getDevices() {
+        fetch('/devices').then(res => res.json()).then(data => {
+           this.setState({devices: data.devices}) 
         })
     }
 
@@ -72,6 +72,14 @@ class Devices extends React.Component {
     saveDevice = event => {
         console.log(this.state);
         event.preventDefault();
+        fetch('/add-device', {
+            method: 'POST',
+            body: JSON.stringify(this.state.deviceInfo),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
     } 
 
     render() {
