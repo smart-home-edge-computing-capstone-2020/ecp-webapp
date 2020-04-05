@@ -20,6 +20,7 @@ class Interaction extends React.Component {
     componentDidMount() {
         // get the device via id from the backend
         const interactionId = this.props.match.params.id;
+        void(interactionId)
         this.getInteraction();
     }
 
