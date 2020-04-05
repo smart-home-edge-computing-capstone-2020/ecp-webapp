@@ -12,9 +12,10 @@ sudo apt-get install python-pip
 # Set up the frontend environment
 sudo apt-get install npm
 sudo npm install -g npm@latest
+sudo npm install -g serve
 cd ecp-frontend
 sudo npm install
-#TODO: Need to go do npm install and stuff, clone repos
+npm run build
 
 # Set up the backend environment
 sudo apt-get install python3-flask
