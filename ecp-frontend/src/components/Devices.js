@@ -4,12 +4,12 @@ import '../style/Devices.css'
 import { Button, Modal, Form, Container, Row, Col } from 'react-bootstrap';
 
 const DevicelistDevice = (device) => (
-    <a href={"/device/" + device.id} >
+    <a href={"/device/" + device.serial} >
         <Row className="device-list-device">
             <Col><div className="device-logo"></div></Col>
             <Col>
                 <h1>
-                    {device.name}
+                    {device.display_name}
                 </h1>
                 <p>
                     {device.description}

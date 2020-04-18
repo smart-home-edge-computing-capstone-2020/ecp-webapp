@@ -29,7 +29,7 @@ function App() {
             <Devices />
           </Route>
           {/* <Route path="/device/:id" component={Device}/> */}
-          <Route path='/device/:id' component={Device} />
+          <Route path='/device/:serial' component={Device} />
           <Route path="/interaction/:id" component={Interaction}/>
           <Route path="/interactions">
             <Interactions />

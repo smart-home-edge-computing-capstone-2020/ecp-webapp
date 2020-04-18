@@ -9,25 +9,24 @@ class Device extends React.Component {
         super();
         this.state = {
             device: null,
-            device_id: null,
+            serial: null,
         }
     }
 
     componentDidMount() {
         // get the device via id from the backend
-        const device_id = this.props.match.params.id;
-        this.setState({device_id: device_id});
-        this.getDevice(device_id);
-        console.log(device_id);
+        const serial = this.props.match.params.serial;
+        this.setState({serial: serial});
+        this.getDevice(serial);
+        console.log(serial);
     }
 
-    getDevice = (device_id) => {
-        const fetchurl = '/device/' + device_id;
+    getDevice = (serial) => {
+        const fetchurl = '/device/' + serial;
         console.log(fetchurl)
         fetch(fetchurl).then(res => res.json()).then(data => {
             this.setState({device: data.device_dict})
         })
-        console.log("hi")
     }
 
     render() {
@@ -38,14 +37,14 @@ class Device extends React.Component {
                 {device &&
                     <div>
                         <div className="page-name">
-                            <h1>{device.name}</h1>
+                            <h1>{device.display_name}</h1>
                         </div>
                         <div className="device">
                             <div className="device-details">
-                                {device.description}
+                                Description: {device.description}
                             </div>
-                            <div>
-                                Status: on
+                            <div className="device-status">
+                                Status: {device.status}
                             </div>
                             <div>
                                 <Button variant="btn btn-outline-dark">

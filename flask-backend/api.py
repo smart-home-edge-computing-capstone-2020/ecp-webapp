@@ -2,44 +2,31 @@ from flask import Flask
 from flask import request
 import json 
 
+# Since db_lib in different folder, have to add to path before importing
+import sys
+# insert at 1, 0 is the script path (or '' in REPL)
+sys.path.insert(1, '../../interaction-layer')
+from db_lib import getAllNodes, getNode, getAllInteractions, getInteraction
+
 app = Flask(__name__)
 
 @app.route('/devices')
 def devices():
-    devices = [
-        {
-            'id': 1,
-            'name': 'bedroom light 1',
-            'description': 'light in bedroom 1',
-            'status': 'on',
-        },
-        {
-            'id': 2,
-            'name': 'bedroom light 2',
-            'description': 'light in bedroom 2',
-            'status': 'on',
-        },
-        {
-            'id': 3,
-            'name': 'bedroom light 3',
-            'description': 'light in bedroom 3',
-            'status': 'on',
-        }
-    ]
-    return_dict = {'devices': devices}
-    return return_dict
+    # TODO: add 'status' to devices
+    devices = getAllNodes()
+    for d in devices:
+        d['status'] = 'todo, integrate with hardware layer'
 
-@app.route('/device/<device_id>')
-def device(device_id):
-    device = {
-        'device_dict': {
-            'id': device_id,
-            'name': 'bedroom light 1',
-            'description': 'light in bedroom 1',
-            'status': 'on',
-        }
-    }
-    return device
+    return {'devices': devices}
+
+@app.route('/device/<serial>')
+def device(serial):
+    # TODO: add 'status' to devices
+    device = getNode(int(serial))
+    device['status'] = 'todo, integrate with hardware layer'
+    # TODO: change frontend from 'name' to 'display_name'
+
+    return {'device_dict' : device}
 
 @app.route('/comissiondevice')
 def addDevice():
