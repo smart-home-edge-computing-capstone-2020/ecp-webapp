@@ -17,10 +17,3 @@ sudo npm install
 
 # Set up the backend environment
 sudo apt-get install python3-flask
-cd ../flask-backend
-python3 -m venv my_venv
-source my_venv/bin/activate
-
-# Install requirements
-pip install --upgrade pip
-pip install -r requirements.txt
