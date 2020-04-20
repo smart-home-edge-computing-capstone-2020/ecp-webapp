@@ -6,7 +6,9 @@ import { Button, Modal, Form, Container, Row, Col } from 'react-bootstrap';
 const DevicelistDevice = (device) => (
     <a href={"/device/" + device.serial} >
         <Row className="device-list-device">
-            <Col><div className="device-logo"></div></Col>
+            <Col><div className="device-logo">
+                    <img className="device-img" src="https://i.pcmag.com/imagery/reviews/04wo2oN9yN2TETM6ZiEZRdE-4..v_1574299154.jpg" />
+                </div></Col>
             <Col>
                 <h1>
                     {device.display_name}
@@ -41,7 +43,7 @@ class Devices extends React.Component {
     }
 
     getDevices() {
-        fetch('/devices').then(res => res.json()).then(data => {
+        fetch('/api/devices').then(res => res.json()).then(data => {
            this.setState({devices: data.devices}) 
         })
     }
@@ -67,7 +69,7 @@ class Devices extends React.Component {
         const deviceType = e.target.value;
         deviceInfo["deviceType"] = deviceType;
         this.setState({deviceInfo: deviceInfo})
-      }
+    }
 
     saveDevice = event => {
         console.log(this.state);
@@ -97,9 +99,9 @@ class Devices extends React.Component {
                                 {
                                     devices.map((device) => DevicelistDevice(device))
                                 }
-                                <Button variant="outline-secondary" onClick={this.showDeviceModal}>
+                                {/* <Button variant="outline-secondary" onClick={this.showDeviceModal}>
                                     Add a new device
-                                </Button>
+                                </Button> */}
                             </Container>
                         </div>
                     }

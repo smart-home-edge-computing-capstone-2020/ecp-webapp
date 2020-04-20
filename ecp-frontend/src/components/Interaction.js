@@ -1,5 +1,6 @@
 import React from 'react';
 import EcpNavbar from './EcpNavbar';
+import {Button} from 'react-bootstrap';
 
 class Interaction extends React.Component {
 
@@ -12,7 +13,7 @@ class Interaction extends React.Component {
 
     getInteraction = (interactionId) => {
         
-        fetch('/interaction/' + interactionId).then(res => res.json()).then(data => {
+        fetch('/api/interaction/' + interactionId).then(res => res.json()).then(data => {
             this.setState({interaction: data.interaction});
         })
     }
@@ -20,8 +21,11 @@ class Interaction extends React.Component {
     componentDidMount() {
         // get the device via id from the backend
         const interactionId = this.props.match.params.id;
-        void(interactionId)
-        this.getInteraction();
+        this.getInteraction(interactionId);
+    }
+
+    deleteInteraction = () => {
+        fetch('/api/delete-interaction?interaction_id=' + this.state.interaction.interaction_id);
     }
 
 
@@ -33,20 +37,46 @@ class Interaction extends React.Component {
                 {interaction &&
                     <div>
                         <div className="page-name">
-                            <h1>{interaction.name}</h1>
+                            <h1>{interaction.display_name}</h1>
                         </div>
                         <div className="interaction">
                             <div className="interaction-details">
-                                {interaction.description}
+                                Descriptions: {interaction.description}
                             </div>
-                            Trigger:
-                            <div className="trigger-device">
-                                {interaction.trigger_device.name}
-                            </div>
-                            Target:
                             <div className="target-device">
-                                {interaction.target_device.name}
+                                Target device: 
+                                <span class="interaction-device">
+                                    <a href={"/device/" + interaction.target_serial}>
+                                        {interaction.target_name}
+                                    </a>
+                                </span>
                             </div>
+                            <div className="action">
+                                Action: 
+                                <span class="interaction-description">
+                                    {interaction.action}
+                                </span>
+                            </div>
+                            <div className="trigger-device">
+                                Trigger device: 
+                                <span class="interaction-device">
+                                    <a href={"/device/" + interaction.trigger_serial}>
+                                        {interaction.trigger_name}
+                                    </a>
+                                </span>
+                            </div>
+                            <div className="trigger-device">
+                                Condition: 
+                                <span class="interaction-description">
+                                    {interaction.operator}
+                                </span>
+                                <span className="interaction-description">
+                                    {interaction.value}
+                                </span>
+                            </div>
+                            <Button onClick={this.deleteInteraction} variant="danger"> 
+                                Delete interaction
+                            </Button>
                         </div>
                     </div>
                 }

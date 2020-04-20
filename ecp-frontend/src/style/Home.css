@@ -22,3 +22,12 @@
 .dashboard-item:hover {
     border: 1px solid blue;
 }
+
+.devices-img {
+    max-width: 10vw;
+}
+
+.interactions-img {
+    width: 10vw;
+    margin-left: 60px;
+}

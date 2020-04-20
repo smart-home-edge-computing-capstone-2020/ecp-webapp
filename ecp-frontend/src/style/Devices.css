@@ -12,5 +12,10 @@
 
 .device-logo {
     height: 100px;
-    background-color: gray;
+}
+
+.device-img {
+    max-height: 12vh;
+    max-width: 20vw;
+    margin-left: 8vw;
 }

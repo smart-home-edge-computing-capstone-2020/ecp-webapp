@@ -22,15 +22,44 @@ class Device extends React.Component {
     }
 
     getDevice = (serial) => {
-        const fetchurl = '/device/' + serial;
+        const fetchurl = '/api/device/' + serial;
         console.log(fetchurl)
         fetch(fetchurl).then(res => res.json()).then(data => {
             this.setState({device: data.device_dict})
         })
     }
 
+    handleChange = event => {
+        this.setState({ newValue: event.target.value });
+    };
+    
+    handleSubmit = event => {
+        if (this.state.newValue) {
+          console.log("Sending new value")
+          this.sendNewValue();
+        }
+        this.setState({newValue: ''});
+        event.preventDefault();
+    };
+
+    sendNewValue = () => {
+        const data = {serial: this.state.serial, value: this.state.newValue}
+        fetch('/api/set-device', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+    }
+
     render() {
         const {device} = this.state;
+        var statusClass = "status";
+        if (device)
+            statusClass = device.is_up ? "status running" : "status offline";
+
         return (
             <div className="device-page">
                 <EcpNavbar/>
@@ -44,12 +73,25 @@ class Device extends React.Component {
                                 Description: {device.description}
                             </div>
                             <div className="device-status">
-                                Status: {device.status}
+                                Device Status:
+                                <span className={statusClass}>
+                                    {device.is_up ? "Running" : "Offline"}
+                                </span>
                             </div>
+                            {device.is_up && 
+                                <div className="device-state">
+                                    Device value:
+                                    <span className="status">
+                                        {device.state}
+                                    </span>
+                                </div>
+                            }
                             <div>
-                                <Button variant="btn btn-outline-dark">
-                                    Turn off
-                                </Button>
+                                <form onSubmit={this.handleSubmit}>
+                                    Set device value:
+                                    <input type="text" value={this.state.newValue} onChange={this.handleChange} className="value-input"/>
+                                    <Button type="submit">Submit</Button>
+                                </form>
                             </div>
                         </div>
                     </div>
