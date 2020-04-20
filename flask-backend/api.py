@@ -6,80 +6,41 @@ import json
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(1, '../../interaction-layer')
-from db_lib import getAllNodes, getNode, getAllInteractions, getInteraction
+
+from db_lib import getAllNodes, getNode, getAllInteractions, getInteraction, 
+from help_lib import *
 
 app = Flask(__name__)
 
-@app.route('/devices')
+@app.route('/api/devices')
 def devices():
     # TODO: add 'status' to devices
     devices = getAllNodes()
-    for d in devices:
-        d['status'] = 'todo, integrate with hardware layer'
-
     return {'devices': devices}
 
-@app.route('/device/<serial>')
+@app.route('/api/device/<serial>')
 def device(serial):
-    # TODO: add 'status' to devices
-    device = getNode(int(serial))
-    device['status'] = 'todo, integrate with hardware layer'
-    # TODO: change frontend from 'name' to 'display_name'
-
+    serial_int = int(serial)
+    device = getNode(serial_int)
+    statuses = getNodeStatuses([serial_int])
+    device['state'] = statuses[serial_int]['status']
     return {'device_dict' : device}
 
-@app.route('/comissiondevice')
-def addDevice():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        device_type = request.form.get('device_type')
-        # do data management with this
-
-@app.route('/interactions')
+@app.route('/api/interactions')
 def interactions():
-    interactions_dict = {
-        'interactions': [
-            {
-                'id': 1,
-                'name': 'morning routine 1',
-                'description': 'I want the lights to turn on five minutes after I wake up.'
-            },
-            {
-                'id': 2,
-                'name': 'morning routine 1',
-                'description': 'I want the lights to turn on five minutes after I wake up.'
-            },
-            {
-                'id': 3,
-                'name': 'morning routine 1',
-                'description': 'I want the lights to turn on five minutes after I wake up.'
-            }
-        ]
-    }
+    interactions = getAllInteractions()
+    interactions_dict = { 'interactions': interactions}
     return interactions_dict
 
-@app.route('/interaction/<interaction_id>')
+@app.route('/api/interaction/<interaction_id>')
 def interaction(interaction_id):
-    device = {
-        'interaction': {
-            'id': interaction_id,
-            'name': 'morning routine 1',
-            'description': 'When I wake up, lights should turn on after five minutes',
-            'trigger_device' : {
-                        'id': 2,
-                        'name': 'motion sensor 2',
-                        'description': 'motion detector in bedroom',
-                        'status': 'on',
-                    },
-            'target_device' : {
-                'id': 1,
-                'name': 'bedroom light 1',
-                'description': 'light in bedroom 1',
-                'status': 'on',
-            }
-        }
-    }
-    return device
+    interaction_id = int(interaction_id)
+    interaction = getInteraction(interaction_id)
+    trigger_device = getNode(interaction['trigger_serial'])
+    target_device = getNode(interaction['target_serial'])
+    interaction['trigger_name'] = trigger_device['display_name']
+    interaction['target_name'] = target_device['display_name']
+    return {'interaction': interaction}
 
 @app.route('/add-device', methods=['POST'])
 def add_device():
@@ -88,3 +49,122 @@ def add_device():
         print(data)
         print(data['name'])
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+
+@app.route('/api/add-interaction', methods=['POST'])
+def add_interaction():
+    if request.method == 'POST':
+        data = request.get_json()
+        data['value'] = int(data['value'])
+        addInteraction(data)
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.route('/api/set-device', methods=['POST'])
+def set_device():
+    if request.method == 'POST':
+        data = request.get_json()
+        serial = int(data['serial'])
+        value = data['value']
+        setNodeStatus(serial, value)
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.route('/api/delete-interaction')
+def delete_interaction():
+    interaction_id = request.args.get('interaction_id')
+    deleteInteraction(interaction_id)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+#################################################
+#################################################
+#################################################
+
+# def getNode(serial):
+#     print(serial)
+#     return {
+#         "serial": 1,
+#         "ip_address": "1.2.3.4",
+#         "is_master": True,
+#         "is_broker": False,
+#         "is_up": True,
+#         "last_up": 1234123,
+#         "display_name": "my device yo",
+#         "description": "the dopest device for me yo",
+#     }
+
+# def getNodeStatuses(serials):
+#     print(serials)
+#     return {
+#         1: {"status": "on like a mothafucka"},
+#         2: {"status": "ohio"},
+#         3: {"status": "sweet tea jesus"},
+
+#     }
+
+# def getAllNodes():
+#     return [
+#         {
+#         "serial": 1,
+#         "ip_address": "1.2.3.4",
+#         "is_master": True,
+#         "is_broker": False,
+#         "is_up": True,
+#         "last_up": 1234123,
+#         "display_name": "my device yo",
+#         "description": "the dopest device for me yo",
+#         },
+#         {
+#         "serial": 2,
+#         "ip_address": "1.2.3.4",
+#         "is_master": True,
+#         "is_broker": False,
+#         "is_up": True,
+#         "last_up": 1234123,
+#         "display_name": "nikos yuted",
+#         "description": "its be what it is, nikos device",
+#         },
+#                 {
+#         "serial": 3,
+#         "ip_address": "1.2.3.4",
+#         "is_master": True,
+#         "is_broker": False,
+#         "is_up": True,
+#         "last_up": 1234123,
+#         "display_name": "rips device",
+#         "description": "holy hell this rips device",
+#         },
+#     ]
+
+# def getAllInteractions():
+#     return [{
+#         "interaction_id": 69,
+#         "trigger_serial": 1,
+#         "operator": '<',
+#         "value": 1,
+#         "target_serial": 2,
+#         "action": "on",
+#         "display_name": "bedroom moves 1",
+#         "description": "when i wake up i want coffee",
+#     }]
+
+# def getInteraction(serial):
+#     return {
+#         "interaction_id": 69,
+#         "trigger_serial": 1,
+#         "operator": '<',
+#         "value": 1,
+#         "target_serial": 2,
+#         "action": "turn on",
+#         "display_name": "bedroom moves 1",
+#         "description": "when i wake up i want coffee",
+#     }
+
+# def setNodeStatus(a, b):
+#     print("YOTED THE YTOE")
+
+# def addInteraction(vals):
+#     print(vals)
+
+# def deleteInteraction(interaction_id):
+#     print(interaction_id)
+#     print("deleting")
+#     print("ha")

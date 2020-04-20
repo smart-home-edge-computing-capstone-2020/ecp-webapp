@@ -14,3 +14,7 @@
     height: 100px;
     background-color: gray;
 }
+
+.interaction-device, .interaction-description {
+    margin-left: 8px;
+}
