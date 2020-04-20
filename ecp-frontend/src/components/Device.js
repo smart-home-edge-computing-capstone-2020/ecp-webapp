@@ -19,6 +19,9 @@ class Device extends React.Component {
         this.setState({serial: serial});
         this.getDevice(serial);
         console.log(serial);
+        const interval = setInterval(() => {
+            this.getDevice(serial)	    
+        }, 1000);
     }
 
     getDevice = (serial) => {

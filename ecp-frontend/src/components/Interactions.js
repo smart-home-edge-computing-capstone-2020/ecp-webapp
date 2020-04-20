@@ -77,8 +77,11 @@ class Interactions extends React.Component {
     getDevices() {
         fetch('/api/devices').then(res => res.json()).then(data => {
            this.setState({devices: data.devices}) 
-           this.state.interactionInfo.trigger_serial = data.devices[0].serial;
-           this.state.interactionInfo.target_serial = data.devices[1].serial;
+           const {interactionInfo} = this.state
+           interactionInfo.trigger_serial = data.devices[0].serial;
+           interactionInfo.target_serial = data.devices[0].serial;
+           this.setState({interactionInfo: interactionInfo})
+           console.log(data.devices)
         })
     }
 
@@ -96,8 +99,9 @@ class Interactions extends React.Component {
         this.setState({showInteractionModal: false})
     }
 
-    saveInteration = event => {
+    saveInteraction = event => {
         event.preventDefault();
+	console.log(this.state.interactionInfo)
         fetch('/api/add-interaction', {
             method: 'POST',
             body: JSON.stringify(this.state.interactionInfo),
@@ -105,7 +109,11 @@ class Interactions extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-        })
+        }).then(() => {
+		this.getInteractions();
+		this.getDevices();
+		this.setState({showInteractionModal: false});
+	})
     } 
 
     render() {
@@ -135,7 +143,7 @@ class Interactions extends React.Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Add a new device to the system</Modal.Title>
                     </Modal.Header>
-                    <Form onSubmit={this.saveInteration}>
+                    <Form onSubmit={this.saveInteraction}>
                         <Modal.Body>
                             <Form.Group controlId="interactionForm.Name">
                                 <Form.Label>Interaction name</Form.Label>

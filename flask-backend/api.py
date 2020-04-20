@@ -7,7 +7,7 @@ import sys
 # insert at 1, 0 is the script path (or '' in REPL)
 sys.path.insert(1, '../../interaction-layer')
 
-from db_lib import getAllNodes, getNode, getAllInteractions, getInteraction, 
+from db_lib import getAllNodes, getNode, getAllInteractions, getInteraction
 from help_lib import *
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ def devices():
 def device(serial):
     serial_int = int(serial)
     device = getNode(serial_int)
-    statuses = getNodeStatuses([serial_int])
+    statuses = getNodeStatus([serial_int])
     device['state'] = statuses[serial_int]['status']
     return {'device_dict' : device}
 
@@ -71,7 +71,7 @@ def set_device():
 @app.route('/api/delete-interaction')
 def delete_interaction():
     interaction_id = request.args.get('interaction_id')
-    deleteInteraction(interaction_id)
+    deleteInteraction(int(interaction_id))
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 #################################################
