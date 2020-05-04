@@ -43,22 +43,8 @@ class Interaction extends React.Component {
                             <div className="interaction-details">
                                 Descriptions: {interaction.description}
                             </div>
-                            <div className="target-device">
-                                Target device: 
-                                <span class="interaction-device">
-                                    <a href={"/device/" + interaction.target_serial}>
-                                        {interaction.target_name}
-                                    </a>
-                                </span>
-                            </div>
-                            <div className="action">
-                                Action: 
-                                <span class="interaction-description">
-                                    {interaction.action}
-                                </span>
-                            </div>
                             <div className="trigger-device">
-                                Trigger device: 
+                                Trigger device:
                                 <span class="interaction-device">
                                     <a href={"/device/" + interaction.trigger_serial}>
                                         {interaction.trigger_name}
@@ -66,12 +52,26 @@ class Interaction extends React.Component {
                                 </span>
                             </div>
                             <div className="trigger-device">
-                                Condition: 
+                                Condition:
                                 <span class="interaction-description">
                                     {interaction.operator}
                                 </span>
                                 <span className="interaction-description">
                                     {interaction.value}
+                                </span>
+                            </div>
+                            <div className="target-device">
+                                Target device:
+                                <span class="interaction-device">
+                                    <a href={"/device/" + interaction.target_serial}>
+                                        {interaction.target_name}
+                                    </a>
+                                </span>
+                            </div>
+                            <div className="action">
+                                Action:
+                                <span class="interaction-description">
+                                    {interaction.action}
                                 </span>
                             </div>
                             <Button onClick={this.deleteInteraction} variant="danger"> 
