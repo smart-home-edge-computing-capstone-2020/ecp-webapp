@@ -33,14 +33,14 @@ class Home extends React.Component {
                                 </div>                                
                             </a>
                         </Col>
-                        <Col>
+                        {/* <Col>
                             <a href="/log">
                                 <div className="dashboard-item">
                                     <div className="dashboard-label">Log</div>
                                 </div>                                
                             </a>
 
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>
